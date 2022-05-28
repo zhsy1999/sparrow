@@ -1,8 +1,3 @@
-export function createDiv() {
-  const div = document.createElement('div');
-  document.body.appendChild(div);
-  return div;
-}
 // 创建 SVG 元素
 export function createSVGElement(type) {
   return document.createElementNS('http://www.w3.org/2000/svg', type);
@@ -24,6 +19,13 @@ export function applyAttributes(element, attributes) {
     const kebabCaseKey = key.replace(/[A-Z]/g, (d) => `-${d.toLocaleLowerCase()}`);
     element.setAttribute(kebabCaseKey, value);
   }
+}
+
+export function applyTransform(element, transform) {
+  const oldTransform = element.getAttribute('transform') || '';
+  // 将新的变换指定到后面的变换后，这里需要字符串拼接
+  const prefix = oldTransform ? `${oldTransform} ` : '';
+  element.setAttribute('transform', `${prefix}${transform}`);
 }
 
 export function getAttributes(node, attributes) {
